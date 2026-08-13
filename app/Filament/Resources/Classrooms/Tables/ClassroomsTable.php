@@ -2,7 +2,9 @@
 
 namespace App\Filament\Resources\Classrooms\Tables;
 
+use Filament\Actions\ActionGroup;
 use Filament\Actions\BulkActionGroup;
+use Filament\Actions\DeleteAction;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Actions\ViewAction;
@@ -16,14 +18,21 @@ class ClassroomsTable
     {
         return $table
             ->columns([
-                TextColumn::make('major_id')
-                    ->numeric()
+                TextColumn::make('major.name')
+                    ->label('Major')
+                    ->searchable()
                     ->sortable(),
                 TextColumn::make('name')
                     ->searchable(),
                 TextColumn::make('level')
-                    ->numeric()
-                    ->sortable(),
+                    ->label('Grade')
+                    ->sortable()
+                    ->formatStateUsing(fn ($state) => match ($state) {
+                        
+                        10 => 'Grade X',
+                        11 => 'Grade XI',
+                        12 => 'Grade XII',
+                    }),
                 IconColumn::make('is_active')
                     ->boolean(),
                 TextColumn::make('created_at')
@@ -39,8 +48,11 @@ class ClassroomsTable
                 //
             ])
             ->recordActions([
-                ViewAction::make(),
-                EditAction::make(),
+                ActionGroup::make([
+                    ViewAction::make(),
+                    EditAction::make(),
+                    DeleteAction::make(),
+                ]),
             ])
             ->toolbarActions([
                 BulkActionGroup::make([

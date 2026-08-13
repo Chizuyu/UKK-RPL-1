@@ -6,6 +6,7 @@ use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Actions\ViewAction;
+use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 
@@ -15,20 +16,26 @@ class StudentsTable
     {
         return $table
             ->columns([
-                TextColumn::make('student_id')
-                    ->numeric()
-                    ->sortable(),
-                TextColumn::make('classroom_id')
-                    ->numeric()
+                ImageColumn::make('profile_picture')
+                    ->imageHeight(72)
+                    ->disk('public'),
+                TextColumn::make('user.name')
+                    ->label('Student Name')
+                    ->searchable()
                     ->sortable(),
                 TextColumn::make('nisn')
+                    ->label('NISN')
                     ->searchable(),
+                TextColumn::make('classroom.name')
+                    ->label('Classroom')
+                    ->searchable()
+                    ->sortable(),
                 TextColumn::make('phone_number')
+                    ->label('Phone Number')
                     ->searchable(),
                 TextColumn::make('gender')
+                    ->label('Gender')
                     ->badge(),
-                TextColumn::make('profile_picture')
-                    ->searchable(),
                 TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()

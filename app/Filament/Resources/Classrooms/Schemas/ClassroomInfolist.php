@@ -12,11 +12,16 @@ class ClassroomInfolist
     {
         return $schema
             ->components([
-                TextEntry::make('major_id')
+                TextEntry::make('Major.name')
                     ->numeric(),
                 TextEntry::make('name'),
                 TextEntry::make('level')
-                    ->numeric(),
+                    ->label('Grade')
+                    ->formatStateUsing(fn ($state) => match ($state) {
+                        10 => 'X',
+                        11 => 'XI',
+                        12 => 'XII',
+                    }),
                 IconEntry::make('is_active')
                     ->boolean(),
                 TextEntry::make('created_at')
