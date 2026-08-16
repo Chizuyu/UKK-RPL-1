@@ -27,7 +27,7 @@ class StudentResource extends Resource
     protected static string|BackedEnum|null $activeNavigationIcon = 'heroicon-s-users';
     protected static string|UnitEnum|null $navigationGroup = 'Student Management';    
 
-    protected static ?string $recordTitleAttribute = 'id';
+    protected static ?string $recordTitleAttribute = 'user.name';
 
     public static function form(Schema $schema): Schema
     {

@@ -1,29 +1,26 @@
 <?php
 
-namespace App\Filament\Resources\Students\Schemas;
+namespace App\Filament\Resources\Categories\Schemas;
 
+use Filament\Infolists\Components\IconEntry;
+use Filament\Infolists\Components\ImageEntry;
 use Filament\Infolists\Components\TextEntry;
 use Filament\Schemas\Schema;
 
-class StudentInfolist
+class CategoryInfolist
 {
     public static function configure(Schema $schema): Schema
     {
         return $schema
             ->components([
-                TextEntry::make('user_id')
-                    ->numeric(),
-                TextEntry::make('classroom_id')
-                    ->numeric(),
-                TextEntry::make('nisn'),
-                TextEntry::make('phone_number'),
-                TextEntry::make('gender')
-                    ->badge(),
-                TextEntry::make('address')
+                TextEntry::make('name'),
+                TextEntry::make('description')
                     ->placeholder('-')
                     ->columnSpanFull(),
-                TextEntry::make('profile_picture')
+                ImageEntry::make('image')
                     ->placeholder('-'),
+                IconEntry::make('is_active')
+                    ->boolean(),
                 TextEntry::make('created_at')
                     ->dateTime()
                     ->placeholder('-'),
